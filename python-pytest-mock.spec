@@ -30,6 +30,8 @@ BuildRequires:	python3-setuptools
 BuildRequires:	python3-setuptools_scm
 %if %{with tests}
 BuildRequires:	python3-pytest >= 2.7
+# there is py3 test which relies on "mock" standalone module not being installed
+BuildConflicts:	python3-mock
 %endif
 %endif
 BuildRequires:	rpm-pythonprov
