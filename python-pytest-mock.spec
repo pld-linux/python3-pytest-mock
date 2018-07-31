@@ -100,7 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 %py3_install
 
 # avoid python3egg(mock) dependency (mock required only for python 2.x)
-%{__sed} -i -e '/\[:python_version *< *"3.*\]/,/^mock$/d' $RPM_BUILD_ROOT%{py3_sitescriptdir}/pytest_mock-%{version}-py*.egg-info/requires.txt
+# (two different notations depending on setuptools version)
+%{__sed} -i -e '/\[:python_version *< *"3.*\]/,/^mock$/d' \
+	-e '/^mock;python_version<"3\.0"/d' $RPM_BUILD_ROOT%{py3_sitescriptdir}/pytest_mock-%{version}-py*.egg-info/requires.txt
 %endif
 
 %clean
