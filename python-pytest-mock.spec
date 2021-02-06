@@ -7,13 +7,14 @@
 Summary:	Thin-wrapper around the mock package for easier use with py.test
 Summary(pl.UTF-8):	Cienka warstwa obudowująca pakiet mock, ułatwiająca używanie wraz z py.test
 Name:		python-pytest-mock
-Version:	1.10.3
+# keep 2.x here for python2 support
+Version:	2.0.0
 Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pytest-mock/
 Source0:	https://files.pythonhosted.org/packages/source/p/pytest-mock/pytest-mock-%{version}.tar.gz
-# Source0-md5:	54fb753faae3ad740ccd06c2d395045e
+# Source0-md5:	b6bcfb98b922b666d9a0db21a38f9d8a
 URL:		https://pypi.org/project/pytest-mock/
 %if %{with python2}
 BuildRequires:	python-modules >= 1:2.7
@@ -75,7 +76,10 @@ pozwalający nie martwić się o wycofywanie łat na końcu testu.
 %py_build
 
 %if %{with tests}
-PYTHONPATH=$(pwd) %{__python} -m pytest
+PYTHONPATH=$(pwd)/src \
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS="pytest_mock" \
+%{__python} -m pytest tests
 %endif
 %endif
 
@@ -83,7 +87,10 @@ PYTHONPATH=$(pwd) %{__python} -m pytest
 %py3_build
 
 %if %{with tests}
-PYTHONPATH=$(pwd) %{__python3} -m pytest
+PYTHONPATH=$(pwd)/src \
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS="pytest_mock" \
+%{__python3} -m pytest tests
 %endif
 %endif
 
@@ -98,11 +105,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with python3}
 %py3_install
-
-# avoid python3egg(mock) dependency (mock required only for python 2.x)
-# (two different notations depending on setuptools version)
-%{__sed} -i -e '/\[:python_version *< *"3.*\]/,/^mock$/d' \
-	-e '/^mock;python_version<"3\.0"/d' $RPM_BUILD_ROOT%{py3_sitescriptdir}/pytest_mock-%{version}-py*.egg-info/requires.txt
 %endif
 
 %clean
@@ -112,8 +114,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG.rst LICENSE README.rst
-%{py_sitescriptdir}/pytest_mock.py[co]
-%{py_sitescriptdir}/_pytest_mock_version.py[co]
+%{py_sitescriptdir}/pytest_mock
 %{py_sitescriptdir}/pytest_mock-%{version}-py*.egg-info
 %endif
 
@@ -121,9 +122,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-pytest-mock
 %defattr(644,root,root,755)
 %doc CHANGELOG.rst LICENSE README.rst
-%{py3_sitescriptdir}/pytest_mock.py
-%{py3_sitescriptdir}/_pytest_mock_version.py
-%{py3_sitescriptdir}/__pycache__/pytest_mock.cpython-*.py[co]
-%{py3_sitescriptdir}/__pycache__/_pytest_mock_version.cpython-*.py[co]
+%{py3_sitescriptdir}/pytest_mock
 %{py3_sitescriptdir}/pytest_mock-%{version}-py*.egg-info
 %endif
