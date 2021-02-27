@@ -6,7 +6,7 @@ Summary:	Thin-wrapper around the mock package for easier use with py.test
 Summary(pl.UTF-8):	Cienka warstwa obudowująca pakiet mock, ułatwiająca używanie wraz z py.test
 Name:		python3-pytest-mock
 Version:	3.5.1
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pytest-mock/
