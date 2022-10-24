@@ -5,13 +5,14 @@
 Summary:	Thin-wrapper around the mock package for easier use with py.test
 Summary(pl.UTF-8):	Cienka warstwa obudowująca pakiet mock, ułatwiająca używanie wraz z py.test
 Name:		python3-pytest-mock
-Version:	3.7.0
-Release:	3
+Version:	3.10.0
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pytest-mock/
 Source0:	https://files.pythonhosted.org/packages/source/p/pytest-mock/pytest-mock-%{version}.tar.gz
-# Source0-md5:	8a17273e0dd1edd32b9c01e876a824fd
+# Source0-md5:	29c685fb54fbac80aae0e551bcbaab31
+Patch0:		pytest-mock-tests.patch
 URL:		https://pypi.org/project/pytest-mock/
 BuildRequires:	python3-modules >= 1:3.7
 BuildRequires:	python3-setuptools
@@ -40,6 +41,7 @@ pozwalający nie martwić się o wycofywanie łat na końcu testu.
 
 %prep
 %setup -q -n pytest-mock-%{version}
+%patch0 -p1
 
 %build
 %py3_build
