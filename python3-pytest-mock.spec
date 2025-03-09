@@ -41,7 +41,7 @@ pozwalający nie martwić się o wycofywanie łat na końcu testu.
 
 %prep
 %setup -q -n pytest-mock-%{version}
-%patch0 -p1
+%patch -P 0 -p1
 
 %build
 %py3_build
