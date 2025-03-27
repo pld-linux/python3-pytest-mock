@@ -5,18 +5,17 @@
 Summary:	Thin-wrapper around the mock package for easier use with py.test
 Summary(pl.UTF-8):	Cienka warstwa obudowująca pakiet mock, ułatwiająca używanie wraz z py.test
 Name:		python3-pytest-mock
-Version:	3.10.0
-Release:	3
+Version:	3.14.0
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pytest-mock/
 Source0:	https://files.pythonhosted.org/packages/source/p/pytest-mock/pytest-mock-%{version}.tar.gz
-# Source0-md5:	29c685fb54fbac80aae0e551bcbaab31
-Patch0:		pytest-mock-tests.patch
+# Source0-md5:	c22f3c24300091f503258d1ba5159551
 URL:		https://pypi.org/project/pytest-mock/
 BuildRequires:	python3-modules >= 1:3.7
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-setuptools_scm
+BuildRequires:	python3-build
+BuildRequires:	python3-installer
 %if %{with tests}
 BuildRequires:	python3-pytest >= 5.0
 BuildRequires:	python3-pytest-asyncio
@@ -41,10 +40,9 @@ pozwalający nie martwić się o wycofywanie łat na końcu testu.
 
 %prep
 %setup -q -n pytest-mock-%{version}
-%patch -P 0 -p1
 
 %build
-%py3_build
+%py3_build_pyproject
 
 %if %{with tests}
 PYTHONPATH=$(pwd)/src \
@@ -56,7 +54,7 @@ PYTEST_PLUGINS="pytest_asyncio.plugin,pytest_mock" \
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%py3_install
+%py3_install_pyproject
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,4 +63,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGELOG.rst LICENSE README.rst
 %{py3_sitescriptdir}/pytest_mock
-%{py3_sitescriptdir}/pytest_mock-%{version}-py*.egg-info
+%{py3_sitescriptdir}/pytest_mock-%{version}.dist-info
