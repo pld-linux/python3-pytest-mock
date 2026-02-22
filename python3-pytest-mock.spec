@@ -6,17 +6,17 @@
 Summary:	Thin-wrapper around the mock package for easier use with py.test
 Summary(pl.UTF-8):	Cienka warstwa obudowująca pakiet mock, ułatwiająca używanie wraz z py.test
 Name:		python3-pytest-mock
-Version:	3.14.1
+Version:	3.15.1
 Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pytest-mock/
 Source0:	https://files.pythonhosted.org/packages/source/p/pytest-mock/pytest_mock-%{version}.tar.gz
-# Source0-md5:	f0cc01a3fdc4155b381ef73301d4776f
+# Source0-md5:	5fb976ed4303e4f8132ed2367e297e31
 URL:		https://pypi.org/project/pytest-mock/
 BuildRequires:	python3-build
 BuildRequires:	python3-installer
-BuildRequires:	python3-modules >= 1:3.8
+BuildRequires:	python3-modules >= 1:3.9
 BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-pytest >= 6.2.5
@@ -31,7 +31,7 @@ BuildRequires:	python3-furo
 BuildRequires:	python3-sphinx_copybutton
 BuildRequires:	sphinx-pdg-3
 %endif
-Requires:	python3-modules >= 1:3.8
+Requires:	python3-modules >= 1:3.9
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
